@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>3DModel</title>
+    <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.js"></script>
+    <script nomodule src="https://unpkg.com/@google/model-viewer/dist/model-viewer-legacy.js"></script>
+</head>
+
+<style>
+    model-viewer {
+        width: 1000px;
+        height: 800px;
+     }
+        input[type=range]::-webkit-slider-thumb {
+        height : 80px;
+        width : 80px;
+     }
+     button {
+        padding: 20px;
+        width: 300px;
+        text-align: center;
+        font-size: 28px;
+        background-color: white;
+        border-radius: 4px;
+        border: none;
+        position: absolute;
+        top: 16px;
+        right: 16px;
+      }
+</style>
+
+<body>
+<h1>My title</h1>
+<h2>Demo 1, Howth!</h2>
+<p>Add text here</p>
+
+
+<model-viewer 
+    id="howth"
+    src="https://nolankucd.github.io/Howth/Howth.glb"
+    scale="0.001 0.001 0.001"
+    camera-controls
+    camera-orbit="-52deg 64deg 38m" field-of-view="30deg"
+    ar
+    ar-scale="auto"
+    alt="shape keys"
+    xr-environment
+    background-color="#ffffff">
+    <button slot="ar-button">
+      🎥 View in AR 👓
+    </button>
+</model-viewer>
+
+    <div class="controls">
+        <div>
+            <p>Year on year sea level rise: <span id="sea1-value"></span></p>
+            <input id="sea1" type="range" style="width: 400px;" style="width: 100px;" min="0" max="2" step="0.01" value="0">
+        </div>
+        <div>
+            <p>Extreme event tidal flooding: <span id="sea2-value"></span></p>
+            <input id="sea2" type="range" style="width: 400px;" style="width: 100px;" min="0" max="4" step="0.01" value="0">
+        </div>
+    </div>
+
+
+    
+<script type="module">
+const modelViewer = document.querySelector("#howth");
+const sea1Slider = document.querySelector("#sea1");
+const sea2Slider = document.querySelector("#sea2");
+
+modelViewer.interactionPrompt = 'none';
+
+sea1Slider.addEventListener("input", (event) => {
+  modelViewer.animationName = 'sea';
+  modelViewer.currentTime = event.target.value;
+  modelViewer.pause();
+});
+
+sea2Slider.addEventListener('input', event => {
+  modelViewer.animationName = 'sea';
+  modelViewer.currentTime = event.target.value;
+  modelViewer.pause();
+});
+
+</script>
+</body>
+</html>
+
